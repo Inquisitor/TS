@@ -15,8 +15,8 @@ struct TZnak {
     operator int() const { return (*bday); }
     void operator()(char* str, char* str2, int mybday[3])
     {
-        strcpy(name, str);
-        strcpy(zodiac, str2);
+        strcpy_s(name, str);
+        strcpy_s(zodiac, str2);
         *bday = mybday[3];
     }
 };
@@ -56,14 +56,14 @@ bool operator>(const TZnak& Znak1, const TZnak& Znak2)
                 // и знак зодиака
 
                 // перестановка имён
-                strcpy(temp_name, book[ctr1].name);
-                strcpy(book[ctr1].name, book[ctr2].name);
-                strcpy(book[ctr2].name, temp_name);
+                strcpy_s(temp_name, book[ctr1].name);
+                strcpy_s(book[ctr1].name, book[ctr2].name);
+                strcpy_s(book[ctr2].name, temp_name);
 
                 // перестановка знака зодиака
-                strcpy(temp_name, book[ctr1].zodiac);
-                strcpy(book[ctr1].zodiac, book[ctr2].zodiac);
-                strcpy(book[ctr2].zodiac, temp_name);
+                strcpy_s(temp_name, book[ctr1].zodiac);
+                strcpy_s(book[ctr1].zodiac, book[ctr2].zodiac);
+                strcpy_s(book[ctr2].zodiac, temp_name);
 
                 int temp_data[3] = {
                     book[ctr1].bday[0], book[ctr1].bday[1], book[ctr1].bday[2]
@@ -109,7 +109,7 @@ int main()
     cout << Student1 << endl;
     TZnak Student2 = { "Petrov", "Strelez", 30, 12, 2666 };
     TZnak Student3;
-    Student1++;
+    ++Student1;
 
     Student3 = Student1 + Student2;
     cout << Student3 << endl;
