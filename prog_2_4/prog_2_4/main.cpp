@@ -24,8 +24,8 @@ TZnak operator+(const TZnak& znak1, const TZnak& znak2)
 {
     TZnak znak3 = znak1;
 
-    strcat_s(znak3.name, znak3.name);
-    strcat_s(znak3.zodiac, znak3.zodiac);
+    strcat_s(znak3.name, znak2.name);
+    strcat_s(znak3.zodiac, znak2.zodiac);
     znak3.bday[0] = znak3.bday[0] + znak2.bday[0];
     znak3.bday[1] = znak3.bday[1] + znak2.bday[1];
     znak3.bday[2] = znak3.bday[2] + znak2.bday[2];
@@ -82,22 +82,31 @@ bool operator>(const TZnak& Znak1, const TZnak& Znak2)
 }
 ostream& operator<<(ostream& out, TZnak& Znak)
 {
-    out << setw(20) << setfill('.') << setiosflags(ios::left) << Znak.name
-        << Znak.zodiac << Znak.bday[0] << "." << Znak.bday[1] << "."
-        << Znak.bday[2] << endl;
+    out << setiosflags(ios::left)
+        << setw(20) << setfill('.') << Znak.name
+        << setw(20) << setfill('.') << Znak.zodiac
+        << resetiosflags(ios::adjustfield)
+        << setiosflags(ios::right)
+        << setw(2) << setfill('0') << Znak.bday[0] << "."
+        << setw(2) << setfill('0') << Znak.bday[1] << "."
+        << setw(4) << setfill('0') << Znak.bday[2]
+        << resetiosflags(ios::adjustfield)
+        << endl ;
     return out;
 }
 istream& operator>>(istream& in, TZnak& Znak)
 {
-    cout << "Vvedite FIO\n";
-    in >> Znak.name;
-    cout << "Vvedite Zodiac\n";
-    in >> Znak.zodiac;
-    cout << "Vvedite Birthday";
+    cout << "Vvedite FIO: ";
+    in >> setw(50) >> Znak.name;
+    cout << "Vvedite Zodiac: ";
+    in >> setw(20) >> Znak.zodiac;
+    cout << "Vvedite Birthday Day: ";
     in >> setw(2) >> Znak.bday[0];
     cin.ignore();
+    cout << "Vvedite Birthday Month: ";
     in >> setw(2) >> Znak.bday[1];
     cin.ignore();
+    cout << "Vvedite Birthday Year: ";
     cin >> setw(4) >> Znak.bday[2];
     cin.get();
     return in;
@@ -108,6 +117,7 @@ int main()
     TZnak Student1 = { "Ivanov", "Deva", 30, 12, 2006 };
     cout << Student1 << endl;
     TZnak Student2 = { "Petrov", "Strelez", 30, 12, 2666 };
+    cout << Student2 << endl;
     TZnak Student3;
     ++Student1;
 
